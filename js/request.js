@@ -1,14 +1,16 @@
 var request = {
-    getWeatherData = $.ajax({
-        url: "/data",
-        success: function(data) {
-        }
-    });
-
     getWeatherData = function (date, callback) {
-        var url = "/data" + date;
-        $.ajax({
-
-        })
+        var path = "/data" + date;
+        $.get(
+            path,
+            function (data, status) {
+                if (status == 200) {
+                    callback(null, data);
+                }
+                else {
+                    callback("数据加载错误", null);
+                }
+            }
+        );
     }
 }
