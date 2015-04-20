@@ -15,6 +15,6 @@ var request = {
     },
 
     refreshData = function (data, callback) {
-
+        
     }
 }
