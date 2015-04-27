@@ -11,4 +11,8 @@ function submitClicked() {
     date = $("#datetimepicker1").datepicker('getFormattedDate').split("/");
     day = date[0];
     month = date[0];
+    longitude = $("#longitude").val();
+    latitude = $("#latitude").val();
+    console.log(longitude);
+    console.log(latitude);
 }

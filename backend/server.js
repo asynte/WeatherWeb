@@ -1,8 +1,12 @@
 var http = require('http'),
     director = require('director');
+var mongoose = require('mongoose');
+var connect = require('connect');
 
 var RainWindDataModel = mongoose.model();
 
+
+mongoose.connect('mongodb://lolcalhost/');
 const PORT = 1235;
 
 var router = new director.http.Router();
