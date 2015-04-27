@@ -1,6 +1,6 @@
 var request = {
-    getWeatherData = function (date, callback) {
-        var path = "/data" + date;
+    getWeatherData = function (, callback) {
+        var path = "/data" + "/" + latitude + "/" + longitude + "/" + month + "/" + day;
         $.get(
             path,
             function (data, status) {
@@ -15,6 +15,5 @@ var request = {
     },
 
     refreshData = function (data, callback) {
-        
     }
 }
