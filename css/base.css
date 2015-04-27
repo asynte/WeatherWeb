@@ -20,7 +20,6 @@ body{
 	padding:0px;
 }
 #data{
-
 	.axis text{
       font: 1px sans-serif;
     }
@@ -35,7 +34,11 @@ body{
         display: none;
     }
 }
-
+svg{
+	margin-left:400px;
+	margin-right: auto;
+	width:70%;
+}
 .form-control{
 	display: block;
 	width:80%;
