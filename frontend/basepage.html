@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
+    <link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     
@@ -38,7 +39,7 @@
 
   </head>
   <body>
-  	<!-- Start of Calender Text -->
+  	<!-- Start of Container for everything -->
     <div class="container">
     	<!-- Start of Calender Class -->
     	<div class="calendertxt">
@@ -88,63 +89,81 @@
             <button type="submit" class="btn btn-default" id="submit">Submit</button>
         </div>
         <!-- End of Button -->
-    </div>
-    <!-- End of Calender Text -->
-    <!-- Start of Data Graph -->
-    <div class="graph">
-        <div id="data">
-            <script type="text/javascript">
-                var data = [32,21,15,10,-3,4,6,12,11,21,15,14,11];
-                var w = 840;
-                var h = data.length*20;
-                var chart = d3.select("body").append("svg")
-                        .attr("class", "chart")
-                        .attr("width", w)
-                        .attr("height", h)
-                        .append("g")
-                        .attr("transform", "translate(10,15)");
-                var x = d3.scale.linear()
-                        .domain([d3.min(data)-5, d3.max(data)+5])
-                        .range([0, w - 20]);
-                var y = d3.scale.ordinal()
-                        .domain(data)
-                        .rangeBands([0, h - 20]);
-                chart.selectAll("rect")
+        <!-- Start of Data Graph -->
+        <div class="graph">
+            <div id="data">
+                <script>
+
+                    var m = 1; // number of series
+
+                    var s = [32,21,15,11,10,11,10,-3,4,6,12,11,21,15,14,11];
+                    var i = 0;
+
+                    var data = d3.range(m).map(
+                      function() { 
+                        return s; 
+                      }
+                    );
+
+                    var margin = {top: 20, right: 30, bottom: 30, left: 40},
+                        width = 960 - margin.left - margin.right,
+                        height = 500 - margin.top - margin.bottom;
+
+                    var y = d3.scale.linear()
+                        .domain([d3.min(s)-5, d3.max(s)+5])
+                        .range([0,height]);
+
+                    var x0 = d3.scale.ordinal()
+                        .domain(d3.range(s.length))
+                        .rangeBands([0, width], .2);
+
+                    var x1 = d3.scale.ordinal()
+                        .domain(d3.range(m))
+                        .rangeBands([0, x0.rangeBand()]);
+
+                    var z = d3.scale.category10();
+
+                    var xAxis = d3.svg.axis()
+                        .scale(x0)
+                        .orient("bottom");
+
+                    var yAxis = d3.svg.axis()
+                        .scale(y)
+                        .orient("left");
+
+                    var svg = d3.select("body").append("svg")
+                        .attr("width", width + margin.left + margin.right)
+                        .attr("height", height + margin.top + margin.bottom)
+                      .append("svg:g")
+                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                    svg.append("g")
+                        .attr("class", "y axis")
+                        .call(yAxis);
+
+                    svg.append("g")
+                        .attr("class", "x axis")
+                        .attr("transform", "translate(0," + height + ")")
+                        .call(xAxis);
+
+                    svg.append("g").selectAll("g")
                         .data(data)
-                        .enter().append("rect")
-                        .attr("y", y)
-                        .attr("width", x)
-                        .attr("height", y.rangeBand());
-                chart.selectAll("text")
-                        .data(data)
-                        .enter().append("text")
-                        .attr("x", x)
-                        .attr("y", function(d) { return y(d) + y.rangeBand() / 2; })
-                        .attr("dx", -3) // padding-right
-                        .attr("dy", ".35em") // vertical-align: middle
-                        .attr("text-anchor", "end") // text-align: right
-                        .text(String);
-                chart.selectAll("line")
-                        .data(x.ticks(10))
-                        .enter().append("line")
-                        .attr("x1", x)
-                        .attr("x2", x)
-                        .attr("y1", 0)
-                        .attr("y2", h-20)
-                        .style("stroke", "#ccc");
-                chart.selectAll("a")
-                        .data(x.ticks(10))
-                        .enter().append("text")
-                        .attr("class", "rule")
-                        .attr("x", x)
-                        .attr("y", 0)
-                        .attr("dy", -3)
-                        .attr("text-anchor", "middle")
-                        .text(String);
-            </script>
+                      .enter().append("g")
+                        .style("fill", function(d, i) { return z(i); })
+                        .attr("transform", function(d, i) { return "translate(" + x1(i) + ",0)"; })
+                      .selectAll("rect")
+                        .data(function(d) { return d; })
+                      .enter().append("rect")
+                        .attr("width", x1.rangeBand())
+                        .attr("height", y)
+                        .attr("x", function(d, i) { return x0(i); })
+                        .attr("y", function(d) { return height-y(d); });
+                </script>
+            </div>
         </div>
+        <!-- End of Data Graph -->
     </div>
-    <!-- End of Data Graph -->
+    <!-- End of Container -->
 
   </body>
 </html>
