@@ -19,3 +19,27 @@ body{
 	margin:10px;
 	padding:0px;
 }
+#data{
+
+	.axis text{
+      font: 1px sans-serif;
+    }
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    .x.axis path {
+        display: none;
+    }
+}
+
+.form-control{
+	display: block;
+	width:80%;
+	height:34px;
+	padding:6px 12px;
+
+}
