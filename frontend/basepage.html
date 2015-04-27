@@ -22,10 +22,12 @@
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css">
-    
+
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     
     <script src="../bower_components/moment/moment.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,9 +42,16 @@
     <div class="container">
     	<!-- Start of Calender Class -->
     	<div class="calendertxt">
-    		<h1>Calender</h1>
+    		<h1>Weather Report</h1>
     		<p>Select the date you wish to view</p>
     	</div> <!-- End of Calender Class -->
+        <!-- Start of Alert -->
+        <div class="alert alert-danger" role="alert" id="fieldError" hidden>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            表单数据不正确
+        </div>
+        <!-- End of Alert -->
 	    <!-- Start of Date Time Picker -->
 	    <div class="row">
 	        <div class='col-sm-6'>
@@ -62,15 +71,18 @@
 	        </script>
 	    </div>
 		<!-- End of Date Time Picker -->
-
+        <!-- Start of Latitude Form -->
         <div class="form-group">
             <label for="latitude">Latitude:</label>
             <input type="text" class="form-control" id="latitude">
         </div>
+        <!-- End of Latitude Form -->
+        <!-- Start of Longitude Form -->
         <div class="form-group">
             <label for="longitude">Longitude:</label>
             <input type="longitude" class="form-control" id="longitude">
         </div>
+        <!-- End of Longitude Form -->
         <!-- Start of Button -->
         <div class="button">
             <button type="submit" class="btn btn-default" id="submit">Submit</button>
@@ -78,80 +90,61 @@
         <!-- End of Button -->
     </div>
     <!-- End of Calender Text -->
-
-
-
-
+    <!-- Start of Data Graph -->
     <div class="graph">
         <div id="data">
-            <script src="http://d3js.org/d3.v3.min.js"></script>
-            <script>
-
-            var n = 20, // number of samples
-                m = 1; // number of series
-
-            var data = d3.range(m).map(function() { return d3.range(n).map(Math.random); });
-
-            var margin = {top: 20, right: 30, bottom: 30, left: 40},
-                width = 960 - margin.left - margin.right,
-                height = 500 - margin.top - margin.bottom;
-
-            var y = d3.scale.linear()
-                .domain([0, 1])
-                .range([height, 0]);
-
-            var x0 = d3.scale.ordinal()
-                .domain(d3.range(n))
-                .rangeBands([0, width], .2);
-
-            var x1 = d3.scale.ordinal()
-                .domain(d3.range(m))
-                .rangeBands([0, x0.rangeBand()]);
-
-            var z = d3.scale.category10();
-
-            var xAxis = d3.svg.axis()
-                .scale(x0)
-                .orient("bottom");
-
-            var yAxis = d3.svg.axis()
-                .scale(y)
-                .orient("left");
-
-            var svg = d3.select("body").append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-              .append("svg:g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-            svg.append("g")
-                .attr("class", "y axis")
-                .call(yAxis);
-
-            svg.append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")")
-                .call(xAxis);
-
-            svg.append("g").selectAll("g")
-                .data(data)
-              .enter().append("g")
-                .style("fill", function(d, i) { return z(i); })
-                .attr("transform", function(d, i) { return "translate(" + x1(i) + ",0)"; })
-              .selectAll("rect")
-                .data(function(d) { return d; })
-              .enter().append("rect")
-                .attr("width", x1.rangeBand())
-                .attr("height", y)
-                .attr("x", function(d, i) { return x0(i); })
-                .attr("y", function(d) { return height - y(d); });
-
+            <script type="text/javascript">
+                var data = [32,21,15,10,-3,4,6,12,11,21,15,14,11];
+                var w = 840;
+                var h = data.length*20;
+                var chart = d3.select("body").append("svg")
+                        .attr("class", "chart")
+                        .attr("width", w)
+                        .attr("height", h)
+                        .append("g")
+                        .attr("transform", "translate(10,15)");
+                var x = d3.scale.linear()
+                        .domain([d3.min(data)-5, d3.max(data)+5])
+                        .range([0, w - 20]);
+                var y = d3.scale.ordinal()
+                        .domain(data)
+                        .rangeBands([0, h - 20]);
+                chart.selectAll("rect")
+                        .data(data)
+                        .enter().append("rect")
+                        .attr("y", y)
+                        .attr("width", x)
+                        .attr("height", y.rangeBand());
+                chart.selectAll("text")
+                        .data(data)
+                        .enter().append("text")
+                        .attr("x", x)
+                        .attr("y", function(d) { return y(d) + y.rangeBand() / 2; })
+                        .attr("dx", -3) // padding-right
+                        .attr("dy", ".35em") // vertical-align: middle
+                        .attr("text-anchor", "end") // text-align: right
+                        .text(String);
+                chart.selectAll("line")
+                        .data(x.ticks(10))
+                        .enter().append("line")
+                        .attr("x1", x)
+                        .attr("x2", x)
+                        .attr("y1", 0)
+                        .attr("y2", h-20)
+                        .style("stroke", "#ccc");
+                chart.selectAll("a")
+                        .data(x.ticks(10))
+                        .enter().append("text")
+                        .attr("class", "rule")
+                        .attr("x", x)
+                        .attr("y", 0)
+                        .attr("dy", -3)
+                        .attr("text-anchor", "middle")
+                        .text(String);
             </script>
         </div>
     </div>
-    <!-- Saving spot for Luo you DD3
-    <svg width="500" height="500">
-    </svg>
-	-->
+    <!-- End of Data Graph -->
+
   </body>
 </html>
