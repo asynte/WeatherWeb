@@ -46,3 +46,8 @@ svg{
 	padding:6px 12px;
 
 }
+
+.chart rect {
+    stroke: white;
+    fill: steelblue;
+}
