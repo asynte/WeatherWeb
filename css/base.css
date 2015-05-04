@@ -1,10 +1,20 @@
 html {
-	font-family: sans-serif;
+	font-family: 'Bree Serif',sans-serif;
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%;
 }
 body{
-	padding-top: 200px;
+	padding-top: 5px;
+	background: url(../resources/img/xv.png) repeat 0 0;
+}
+h1,h2,h3,h4,h5,h6{
+	font-family: 'Bree Serif',sans-serif;
+}
+p,div{
+	font-family: 'Bree Serif',sans-serif;
+}
+.container{
+	background: url(../resources/img/containerback.png) repeat 0 0;
 }
 .calendertxt{
 	margin: 10px;
@@ -20,22 +30,23 @@ body{
 	padding:0px;
 }
 #data{
-	.axis text{
-      font: 1px sans-serif;
-    }
-    .axis path,
-    .axis line {
-        fill: none;
-        stroke: #000;
-        shape-rendering: crispEdges;
-    }
+	.axis text {
+	  font: 10px sans-serif;
+	}
 
-    .x.axis path {
-        display: none;
-    }
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+
+	.x.axis path {
+	  display: none;
+	}
 }
 svg{
-	margin-left:400px;
+	margin-left: 450px;
 	margin-right: auto;
 	width:70%;
 }
@@ -47,7 +58,8 @@ svg{
 
 }
 
-.chart rect {
-    stroke: white;
-    fill: steelblue;
+#submit{
+	background-color: #46E666;
+	padding-left:15px;
+	padding-right: 15px;
 }
