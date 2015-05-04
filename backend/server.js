@@ -20,8 +20,8 @@ var server = http.createServer(function (req, res) {
     });
 }).listen(PORT);
 
-router.get('/data/:lat/:long/:month/:day', function (latitude, longitude, month, day) {
-    RainWindDataModel.findByLatLong(latitude, longitude, month, day, function(err, datas) {
+router.get('/data/:month/:day', function (month, day) {
+    RainWindDataModel.findByDate(month, day, function(err, datas) {
         if (err) {
             res.writeHead(200, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({
