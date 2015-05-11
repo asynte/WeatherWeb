@@ -2,12 +2,11 @@ var http = require('http'),
     director = require('director');
 var mongoose = require('mongoose');
 
+mongoose.connect('mongodb://localhost/weather');
+
 require("./model.js");
 
-var RainWindDataModel = mongoose.model('wind');
-
-
-mongoose.connect('mongodb://localhost/weather');
+var RainWindDataModel = mongoose.model('WindModel');
 const PORT = 1235;
 
 var router = new director.http.Router();
@@ -30,7 +29,6 @@ router.get('/data/:month/:day', function (month, day) {
                 message: "internal error"
             }));
         }
-        console.log(datas);
         res.writeHead(200, { 'Content-Type': 'application/json' });
         mapped_data = datas.map(function (obj) {
             var new_obj = {};
@@ -57,4 +55,7 @@ router.get('/data/:month/:day', function (month, day) {
             data: mapped_data
         }));
     })
+});
+
+router.get('/statics/', function () {
 });
