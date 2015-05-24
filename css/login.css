@@ -1,0 +1,58 @@
+html {
+	font-family: 'Bree Serif',sans-serif;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+
+h1,h2,h3,h4,h5,h6{
+	font-family: 'Bree Serif',sans-serif;
+}
+p,div{
+	font-family: 'Bree Serif',sans-serif;
+}
+
+.myContainer{
+	position:fixed;
+	top:25%;
+	left:40%;
+	margin-left:10px;
+	margin-right:10px;
+	margin-top:10px;
+	margin-bottom:10px;
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+.formtab{
+	margin:10px;
+	padding:auto:;
+}
+#myTab{
+	margin-top:5px;
+	margin-right:5px;
+	margin-left:5px;
+	margin-bottom:0px;
+	padding-top:0px;
+	padding-left:5px;
+	padding-right:5px;
+	padding-bottom:0px;
+}
+#myTabContent{
+	margin-top:0px;
+	margin-right:5px;
+	margin-left:5px;
+	margin-bottom:0px;
+	padding-top:0px;
+	padding-left:5px;
+	padding-right:5px;
+	padding-bottom:0px;
+}
+.form-login-heading{
+	margin-left:5px;
+	margin-right:200px;
+}
+.form-control{
+	margin-right:250px;
+	margin-bottom:5px;
+}
