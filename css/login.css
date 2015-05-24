@@ -3,26 +3,34 @@ html {
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%;
 }
-
+body{
+	background: url(../resources/img/loginmainback.jpg) repeat 0 0;
+}
 h1,h2,h3,h4,h5,h6{
 	font-family: 'Bree Serif',sans-serif;
 }
 p,div{
 	font-family: 'Bree Serif',sans-serif;
 }
-
-.myContainer{
+.LoginSignupContainer{
+	background: url(../resources/img/loginsecondback.jpg) center repeat;
 	position:fixed;
-	top:25%;
-	left:40%;
+	top:30%;
+	left:50%;
 	margin-left:10px;
 	margin-right:10px;
 	margin-top:10px;
 	margin-bottom:10px;
-	padding-left:10px;
-	padding-right:10px;
-	padding-top:10px;
-	padding-bottom:10px;
+	padding-left:4%;
+	padding-right:4%;
+	padding-top:3%;
+	padding-bottom:3%;
+}
+.myContainer{
+	background-color: white;
+	position:relative;
+	padding-top:1%;
+	padding-bottom: 3%;
 }
 .formtab{
 	margin:10px;
