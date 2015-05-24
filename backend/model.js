@@ -25,16 +25,14 @@ var rainWindDataSchema = new Schema({
 
 rainWindDataSchema.statics.findByDate = function (month, day, callback) {
     console.log("find");
-    this.find().exec(callback);
-    // return this.find({
-    //     Day: day,
-    //     Month: month 
-    // })
-    // .sort('-Hour')
-    // .sort('-Min')
-    // .sort('-Sec')
-    // .exec(callback);
+    return this.find({
+        Day: day,
+        Month: month 
+    })
+    .sort('-Hour')
+    .sort('-Min')
+    .sort('-Sec')
+    .exec(callback);
 }
 
-console.log("Imported");
 mongoose.model("WindModel", rainWindDataSchema);

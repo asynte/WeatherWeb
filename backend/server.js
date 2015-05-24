@@ -1,6 +1,10 @@
 var http = require('http'),
     director = require('director');
 var mongoose = require('mongoose');
+var path = require('path');
+var fileSystem = require('fs');
+var mmm = require('mmmagic'),
+    Magic = mmm.Magic;
 
 mongoose.connect('mongodb://localhost/weather');
 
@@ -20,7 +24,7 @@ var server = http.createServer(function (req, res) {
 }).listen(PORT);
 
 router.get('/data/:month/:day', function (month, day) {
-    res = this.res;
+    var res = this.res;
     RainWindDataModel.findByDate(month, day, function(err, datas) {
         if (err) {
             res.writeHead(500, { 'Content-Type': 'application/json' });
@@ -57,5 +61,27 @@ router.get('/data/:month/:day', function (month, day) {
     })
 });
 
-router.get('/statics/', function () {
+router.get('/statics/?((\w|.)*)', function (url) {
+    console.log(url);
+    url = "../" + url;
+    var filePath = path.join(__dirname, url);
+    var magic = new Magic(mmm.MAGIC_MIME_TYPE);
+    var res = this.res;
+
+    if (fileSystem.existsSync(filePath)) {
+        magic.detectFile(filePath, function (err, result) {
+            console.log(result);
+            var stat = fileSystem.statSync(filePath);
+            res.writeHead(200, {
+                'Content-Type': result,
+                'Content-Length': stat.size
+            });
+            var readStream = fileSystem.createReadStream(filePath);
+            readStream.pipe(res);
+        })
+    }
+    else {
+        res.writeHead(404);
+        res.end();
+    }
 });

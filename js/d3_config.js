@@ -41,7 +41,3 @@ function makeMap(data) {
         .on('click', circleClicked);
     });
 }
-
-function circleClicked(data) {
-    console.log(data);
-}
