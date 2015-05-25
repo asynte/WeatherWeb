@@ -22,6 +22,24 @@
     <link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script>
+      $(document).ready(function(){
+        $.get("/SessionVerify", function(res) {
+          //Code 7 means logged in
+          if(res.code===7){
+            $('#signup_btn').hide();
+            $('#login_btn').hide();
+            $('#logout_btn').show();
+          }
+          //Code 8 means not logged in
+          else if(res.code===8){
+            $('#signup_btn').show();
+            $('#login_btn').show();
+            $('#logout_btn').hide();
+          }
+       });
+      });
+    </script>
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -54,6 +72,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="./Login.html" class="btn btn-lg btn-primary btn-block btn-link" role="button" id="signup_btn">Sign Up</a></li>
             <li><a href="./Login.html" class="btn btn-lg btn btn-block btn-link" role="button" id="login_btn">Login</a></li>
+            <li><a href="./index.html" class="btn btn-lg btn btn-block btn-link" role="button" id="logout_btn">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
