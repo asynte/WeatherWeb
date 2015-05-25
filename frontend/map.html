@@ -97,6 +97,14 @@
 		vectorFCArrow.show();
 	}
 
+	map.addEventListener("moveend", function(){     
+		var centerPoint = map.getCenter();  
+		var centerJSON = {"px":centerPoint.lng , "py":centerPoint.lat};
+		//alert(centerPoint.lng+" "+centerPoint.lat);
+		$.post( "/PostPos", centerJSON);
+		alert(centerJSON.px+" "+centerJSON.py);
+	});
+
 	addArrow(point1,90,1);//position, direction, speed(mph)
 	addArrow(point2,45,50);
 	addArrow(point3,135,10);
@@ -107,6 +115,15 @@
 		py = result.content.point.y;
 		map.setViewport({center:new BMap.Point(px,py),zoom:14})
 	});
+
+/*
+	$.getJSON("/GetPos", function(result) {
+		px = result.content.px;
+		py = result.content.py;
+		map.setViewport({center:new BMap.Point(px,py),zoom:14})
+	}
+*/
+
 	function setCenter(ip)
 	{
 		$.getJSON("http://api.map.baidu.com/location/ip?ak=qE02zgmFr4DFG0me1Q6hL73t&ip="+ip+"&coor=bd09ll&callback=?", function(result){
@@ -116,6 +133,6 @@
 			map.setViewport({center:new BMap.Point(px,py),zoom:14})
 		});
 	}
-	//setCenter("202.198.16.3");
+
 </script>
 </html>
