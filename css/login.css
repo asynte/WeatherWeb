@@ -13,10 +13,11 @@ p,div{
 	font-family: 'Bree Serif',sans-serif;
 }
 .LoginSignupContainer{
+	font-family: 'Bree Serif',sans-serif;
 	background: url(../resources/img/loginsecondback.jpg) center repeat;
 	position:fixed;
 	top:30%;
-	left:50%;
+	left:30%;
 	margin-left:10px;
 	margin-right:10px;
 	margin-top:10px;
@@ -34,7 +35,7 @@ p,div{
 }
 .formtab{
 	margin:10px;
-	padding:auto:;
+
 }
 #myTab{
 	margin-top:5px;

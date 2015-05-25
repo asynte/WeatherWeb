@@ -1,0 +1,24 @@
+html {
+	font-family: 'Bree Serif',sans-serif;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+body{
+	background: url(../resources/img/loginmainback.jpg) repeat 0 0;
+}
+h1,h2,h3,h4,h5,h6{
+	font-family: 'Bree Serif',sans-serif;
+}
+p,div{
+	font-family: 'Bree Serif',sans-serif;
+}
+#allmap{
+	width:70%;
+	height:80%;
+	position:relative;
+	top:6%;
+	left:15%;
+}
+.aContainer{
+
+}
